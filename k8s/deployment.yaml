@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tourism-app
+  namespace: tourism
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tourism-app
+  template:
+    metadata:
+      labels:
+        app: tourism-app
+    spec:
+      containers:
+      - name: tourism-app
+        image: <your-dockerhub-username>/tourism-react:latest
+        ports:
+        - containerPort: 80
