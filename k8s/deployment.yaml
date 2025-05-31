@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: tourism-app
-        image: <your-dockerhub-username>/tourism-react:latest
+        image: satishosk/tourism-react:latest
         ports:
         - containerPort: 80
