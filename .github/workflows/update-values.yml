@@ -1,0 +1,24 @@
+name: Update Values for New Image
+
+on:
+  repository_dispatch:
+    types: [update-values]
+
+jobs:
+  update-values:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Infra Repo
+        uses: actions/checkout@v3
+
+      - name: Update Dev Values File
+        run: |
+          sed -i "s|image: .*|image: ${{ github.event.client_payload.image }}|" env/dev/values.yaml
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git commit -am "Update image to ${{ github.event.client_payload.image }}"
+          git push
