@@ -11,11 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Replace image tag in dev
+      - name: Print received tag
+        run: echo "Received image tag: ${{ github.event.client_payload.image_tag }}"
+
+      - name: Update image tag in dev deployment.yaml
         run: |
           TAG=${{ github.event.client_payload.image_tag }}
-          sed -i "s|image: .*|image: oletisatishkumar/react-tourism:$TAG|g" dev/deployment.yaml
+          sed -i "s|image: .*|image: satishosk/react-tourism:$TAG|g" dev/deployment.yaml
+
+      - name: Commit and push changes
+        run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git commit -am "Update dev image to $TAG"
+          git commit -am "Update dev image to ${{ github.event.client_payload.image_tag }}"
           git push
