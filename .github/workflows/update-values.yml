@@ -1,29 +1,21 @@
-name: Update Values for New Image
+name: Update Infra
 
 on:
   repository_dispatch:
-    types: [update-values]
+    types: [update-infra]
 
 jobs:
-  update-values:
+  update:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Infra Repo
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-    - name: Update Dev values.yaml
-      run: |
-        IMAGE="${{ github.event.client_payload.image }}"
-        REPO=$(echo "$IMAGE" | cut -d':' -f1)
-        TAG=$(echo "$IMAGE" | cut -d':' -f2)
-
-        sed -i "s|repository:.*|repository: ${REPO}|" env/dev/values.yaml
-        sed -i "s|tag:.*|tag: ${TAG}|" env/dev/values.yaml
-
-    - name: Commit and Push
-      run: |
-        git config user.name "github-actions"
-        git config user.email "actions@github.com"
-        git commit -am "Update image to ${{ github.event.client_payload.image }}"
-        git push
+      - name: Replace image tag in dev
+        run: |
+          TAG=${{ github.event.client_payload.image_tag }}
+          sed -i "s|image: .*|image: oletisatishkumar/react-tourism:$TAG|g" dev/deployment.yaml
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -am "Update dev image to $TAG"
+          git push

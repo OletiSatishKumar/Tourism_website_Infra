@@ -1,21 +1,15 @@
-Tourism_Infra/
-├── helm/
-│   └── tourism-chart/
-│       ├── templates/
-│       │   ├── deployment.yaml
-│       │   ├── service.yaml
-│       │   └── ingress.yaml
-│       ├── Chart.yaml
-│       └── values.yaml
-├── env/
-│   ├── dev/
-│   │   └── values.yaml
-│   └── prod/
-│       └── values.yaml
+Tourism_website_Infra/
+├── dev/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── kustomization.yaml
+├── prod/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── kustomization.yaml
 ├── argocd/
-│   ├── dev-app.yaml          # Argo CD Application for Dev
-│   └── prod-app.yaml         # Argo CD Application for Prod
-├── .github/
-│   └── workflows/
-│       └── update-values.yaml
-└── README.md
+│   ├── tourism-dev-app.yaml
+│   └── tourism-prod-app.yaml
+└── .github/
+    └── workflows/
+        └── update-infra.yml

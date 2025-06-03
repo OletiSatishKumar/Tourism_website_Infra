@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tourism-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tourism-frontend
+  template:
+    metadata:
+      labels:
+        app: tourism-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: oletisatishkumar/react-tourism:dev-123
+          ports:
+            - containerPort: 80
