@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: tourism-app
-        image: satishosk/tourism-react:sha-9c70eb7
+        image: satishosk/tourism-react:sha-ee31411
         ports:
         - containerPort: 80
