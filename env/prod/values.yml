@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: your-dockerhub-username/tourism-app
+  repository: satishosk/tourism-react
   tag: prod-<BUILD_TAG> 
   pullPolicy: IfNotPresent
 
