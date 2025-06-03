@@ -14,7 +14,12 @@ jobs:
 
     - name: Update Dev values.yaml
       run: |
-        sed -i "s|repository:.*|repository: ${{ github.event.client_payload.image }}|" env/dev/values.yaml
+        IMAGE="${{ github.event.client_payload.image }}"
+        REPO=$(echo "$IMAGE" | cut -d':' -f1)
+        TAG=$(echo "$IMAGE" | cut -d':' -f2)
+
+        sed -i "s|repository:.*|repository: ${REPO}|" env/dev/values.yaml
+        sed -i "s|tag:.*|tag: ${TAG}|" env/dev/values.yaml
 
     - name: Commit and Push
       run: |
