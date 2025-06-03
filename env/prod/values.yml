@@ -1,0 +1,30 @@
+replicaCount: 2
+
+image:
+  repository: your-dockerhub-username/tourism-app
+  tag: prod-<BUILD_TAG> 
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30082
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: tourism.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
